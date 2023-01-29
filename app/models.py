@@ -39,7 +39,7 @@ class Season(models.Model):
 
 
 class Plots(models.Model):
-    contour = giomodels.MultiLineStringField(srid=4326)
+    contour = giomodels.MultiLineStringField(srid=4326, null=True, blank=True)
     farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE, related_name='farmer_plots')
     culture = models.ForeignKey(Culture, on_delete=models.CASCADE, related_name='farmer_cultures', null=True, blank=True)
     season = models.ForeignKey(Season, on_delete=models.CASCADE, related_name='farmer_seasons')

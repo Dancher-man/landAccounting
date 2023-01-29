@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres
+    container_name: land
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: land
+      PGDATA: /home/ubuntu/postgres/data
+      POSTGRES_INITDB_ARGS: "-A md5"
+  web:
+    build: .
+    command: >
+      bash -c "
+            python manage.py runserver 0.0.0.0:8000 --noreload"
+    volumes:
+      - .:/usr/src/LandAccounting
+    ports:
+      - "54321:5432"
+      - "8000:8000"
+    depends_on:
+      - db
+
